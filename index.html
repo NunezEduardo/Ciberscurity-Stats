@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberThreat Intelligence Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="matrix-bg"></div>
+    <nav class="navbar navbar-dark">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">
+                <i class="fas fa-shield-alt me-2"></i>
+                CyberThreat Intelligence Dashboard
+            </span>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Filtros -->
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-filter me-2"></i>Filtros
+                    </div>
+                    <div class="card-body">
+                        <form id="searchForm">
+                            <div class="mb-3">
+                                <label class="form-label">País</label>
+                                <select class="form-select" id="countryFilter"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Año</label>
+                                <select class="form-select" id="yearFilter"></select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Tipo de Ataque</label>
+                                <select class="form-select" id="attackTypeFilter"></select>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-2"></i>Analizar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido Principal -->
+            <div class="col-md-9">
+                <!-- Estadísticas Generales -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <i class="fas fa-bug mb-3" style="font-size: 24px;"></i>
+                                <h5 class="card-title">Total Ataques</h5>
+                                <p class="card-text" id="totalAttacks">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <i class="fas fa-dollar-sign mb-3" style="font-size: 24px;"></i>
+                                <h5 class="card-title">Pérdidas Totales</h5>
+                                <p class="card-text" id="totalLosses">$0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card">
+                            <div class="card-body">
+                                <i class="fas fa-users mb-3" style="font-size: 24px;"></i>
+                                <h5 class="card-title">Usuarios Afectados</h5>
+                                <p class="card-text" id="totalUsers">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-chart-line me-2"></i>Tendencia de Ataques
+                            </div>
+                            <div class="card-body">
+                                <canvas id="attackTrend" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-chart-pie me-2"></i>Distribución por Industria
+                            </div>
+                            <div class="card-body">
+                                <canvas id="industryDistribution" height="250"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mapa -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-globe me-2"></i>Distribución Global de Amenazas
+                    </div>
+                    <div class="card-body">
+                        <div id="map" style="height: 400px;"></div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Datos -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-table me-2"></i>Detalles de Amenazas
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" id="threatsTable">
+                                <thead>
+                                    <tr>
+                                        <th>País</th>
+                                        <th>Año</th>
+                                        <th>Tipo de Ataque</th>
+                                        <th>Industria</th>
+                                        <th>Pérdidas ($M)</th>
+                                        <th>Usuarios Afectados</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
